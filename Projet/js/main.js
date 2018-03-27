@@ -38,6 +38,7 @@ $(document).ready(function(){
   form.submit(function(e){
     var input = $('input[name="inputVille"]').val();
     var perPage = $('input[name="nbResults"]').val();
+    console.log(input +" "+perPage);
     if (perPage == 0) {
       perPage = 100;
     }
@@ -50,8 +51,8 @@ $(document).ready(function(){
           api_key : "044417fb5b28b6ccb072373638d89bd4",
           tags : input,
           format : "json",
-          jsoncallback : "1",
-          perpage : perPage
+          nojsoncallback : "1",
+          per_page : perPage
       },
       success : function(codeHtmlSucces, statut){
         console.log("succès");
@@ -63,20 +64,40 @@ $(document).ready(function(){
       var photos = data.photos.photo;
       $("li").remove();
       if (photos.length != 0) {
-        $('#NoCityFound').dialog("option","modal","false");
+        $('#NoCityFound').dialog().dialog("close");
         $('#NoCityFound').css("display", "none");
         $.each(photos, function(i,data){
           liste.append("<li><img src =https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg></li>");
           $('ul li img:last-child').click(function(){
-            $('#infosPhoto').append(data.title);
-            $('#infosPhoto').css("display", "block");
-            $('#infosPhoto').dialog();
+            $.ajax({
+              url : 'https://api.flickr.com/services/rest/',
+              type : 'GET',
+              format : "json",
+              nojsoncallback : "1",
+              data : {
+                method : "flickr.photos.getInfo",
+                api_key : "044417fb5b28b6ccb072373638d89bd4",
+                photo_id : this.id,
+                secret : this.secret
+              },
+              success : function(codeHtmlSucces, statut){
+                console.log(data);
+                console.log("succès");
+              },
+              error : function(resultat, statut, erreur){
+                console.log(erreur);
+              }
+            }).done(function(data){
+              $('#infosPhoto').append(data);
+              $('#infosPhoto').css("display", "block");
+              $('#infosPhoto').dialog().dialog("open");
+            });
           });
         });
       }
       else{
         $('#NoCityFound').css("display", "block");
-        $('#NoCityFound').dialog("option","modal","true");
+        $('#NoCityFound').dialog().dialog("open");
       }
     });
 
