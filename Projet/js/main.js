@@ -67,7 +67,7 @@ $(document).ready(function(){
       }
     }).done(function(data){
       var photos = data.photos.photo;
-      $("li").remove();
+      $(".body").empty();
       if (photos.length != 0) {
         $('#NoCityFound').dialog().dialog("close");
         $('#NoCityFound').css("display", "none");
