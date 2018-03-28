@@ -68,32 +68,39 @@ $(document).ready(function(){
         $('#NoCityFound').css("display", "none");
         $.each(photos, function(i,data){
           liste.append("<li><img src =https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg></li>");
-          $('ul li img:last-child').click(function(){
-            $.ajax({
-              url : 'https://api.flickr.com/services/rest/',
-              type : 'GET',
-              format : "json",
-              nojsoncallback : "1",
-              data : {
-                method : "flickr.photos.getInfo",
-                api_key : "044417fb5b28b6ccb072373638d89bd4",
-                photo_id : this.id,
-                secret : this.secret
-              },
-              success : function(codeHtmlSucces, statut){
-                console.log(data);
-                console.log("succès");
-              },
-              error : function(resultat, statut, erreur){
-                console.log(erreur);
-              }
-            }).done(function(data){
-              $('#infosPhoto').append(data);
-              $('#infosPhoto').css("display", "block");
-              $('#infosPhoto').dialog().dialog("open");
-            });
+        });
+        var photo = $('img');
+        $.each(photo, function(index, photos){
+          console.log(photos);
+          photo.click(function(){
+            console.log(" test");
+          $.ajax({
+            url : 'https://api.flickr.com/services/rest/',
+            type : 'GET',
+            format : "json",
+            nojsoncallback : "1",
+            data : {
+              method : "flickr.photos.getInfo",
+              api_key : "044417fb5b28b6ccb072373638d89bd4",
+              photo_id : photo.id,
+              secret : photo.secret
+            },
+            success : function(codeHtmlSucces, statut){
+              console.log(data);
+              console.log("succès");
+            },
+            error : function(resultat, statut, erreur){
+              console.log(erreur);
+            }
+          }).done(function(data){
+            console.log(data);
+            $('#infosPhoto').append("<p>"+data+"</p>");
+            $('#infosPhoto').css("display", "block");
+            $('#infosPhoto').dialog().dialog("open");
           });
         });
+      });
+
       }
       else{
         $('#NoCityFound').css("display", "block");
