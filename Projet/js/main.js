@@ -1,6 +1,9 @@
 $(document).ready(function(){
   var form = $('form');
   var liste = $('.body');
+  var isSelected = false;
+  var search = "";
+  $( "#tabs" ).tabs();
 
 
   $("#search").autocomplete({
@@ -36,13 +39,15 @@ $(document).ready(function(){
   });
 
   form.submit(function(e){
-    var input = $('input[name="inputVille"]').val();
+    e.preventDefault();
+  if (isSelected && search != "") {
+    var input = search;
     var perPage = $('input[name="nbResults"]').val();
     console.log(input +" "+perPage);
     if (perPage == 0) {
       perPage = 100;
     }
-    e.preventDefault();
+
     $.ajax({
       url : 'https://api.flickr.com/services/rest/',
       type : 'GET',
@@ -108,5 +113,7 @@ $(document).ready(function(){
       }
     });
 
-  });
+  }else{
+    alert("Veuillez choisir une ville");
+  }});
 });
