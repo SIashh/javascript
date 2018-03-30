@@ -1,6 +1,10 @@
 $(document).ready(function(){
   var form = $('form');
   var liste = $('.body');
+  var tableau = $('.tableau');
+  var tableauBdy = $('.tableau tbody');
+
+  tableau.DataTable();
   var isSelected = false;
   var search = "";
   $( "#tabs" ).tabs();
@@ -72,7 +76,10 @@ $(document).ready(function(){
         $('#NoCityFound').dialog().dialog("close");
         $('#NoCityFound').css("display", "none");
         $.each(photos, function(i,data){
+
           liste.append("<li class='bodyLi'>\n<div class='gallery'><img class='bodyImg' src =https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg >\n</div>");
+          tableauBdy.append("<tr>\n<td><img class='bodyImg' src =https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg ></td>\n<td>TITRE</td>\n<td>SOURCE</td>\n<td>DATE</td>\n<tr>");
+
         });
         var photo = $('img');
         $.each(photo, function(index, photos){
