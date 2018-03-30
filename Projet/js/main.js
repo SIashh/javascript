@@ -72,7 +72,7 @@ $(document).ready(function(){
         $('#NoCityFound').dialog().dialog("close");
         $('#NoCityFound').css("display", "none");
         $.each(photos, function(i,data){
-          liste.append("<li><img src =https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg></li>");
+          liste.append("<li class='bodyLi'>\n<img class='bodyImg' src =https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg>\n<h3 class='bodyTitle'>title<h3>\n<p class='bodyDes'>description lorem ipsum lorem ipsum lorem ipsum lorem ipsum </p>\n</li>");
         });
         var photo = $('img');
         $.each(photo, function(index, photos){
