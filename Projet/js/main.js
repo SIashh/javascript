@@ -1,10 +1,16 @@
 $(document).ready(function(){
   var form = $('form');
   var liste = $('.body');
-  var tableau = $('.tableau');
-  var tableauBdy = $('.tableau tbody');
 
-  tableau.DataTable();
+  var tableau = $('.tableau').DataTable( {
+                            columns: [
+                                { data: 'Picture' },
+                                { data: 'Title' },
+                                { data: 'Owner' },
+                                { data: 'Date' }
+                            ]
+                        } );
+
   var isSelected = false;
   var search = "";
   $( "#tabs" ).tabs();
@@ -78,9 +84,15 @@ $(document).ready(function(){
         $.each(photos, function(i,data){
 
           liste.append("<li class='bodyLi'>\n<div class='gallery'><img class='bodyImg' src =https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg >\n</div>");
-          tableauBdy.append("<tr>\n<td><img class='bodyImg' src =https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg ></td>\n<td>"+data.title+"</td>\n<td>"+data.owner+"</td>\n<td>01/01/01</td>\n<tr>");
+          tableau.row.add( {
+                         "Picture":       "<img class='bodyImg' src =https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg >",
+                         "Title":   data.title,
+                         "Owner":     data.owner,
+                         "Date": "2011/04/25"
+                     } ).draw();
 
         });
+
         var photo = $('img');
         $.each(photo, function(index, photos){
           console.log(photos);
