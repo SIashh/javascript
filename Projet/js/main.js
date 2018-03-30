@@ -15,6 +15,18 @@ $(document).ready(function(){
   var search = "";
   $( "#tabs" ).tabs();
 
+  var Image = function(){
+    this.id = null;
+    this.url = null;
+    this.owner = null;
+    this.location = null;
+    this.title = null;
+    this.date = null;
+  }
+
+  var Images = function(){
+    this.images = new Array();
+  }
 
   $("#search").autocomplete({
     source: function( request, response ) {
@@ -75,25 +87,23 @@ $(document).ready(function(){
           console.log(erreur);
         }
       }).done(function(data){
+        var tableImg = new Images();
         tableau.clear();
         var photos = data.photos.photo;
         $(".body").empty();
         if (photos.length != 0) {
           $('#NoCityFound').dialog().dialog("close");
           $('#NoCityFound').css("display", "none");
-          $.each(photos, function(i,data){
 
-            liste.append("<li class='bodyLi'>\n<div class='gallery'><img id ='image"+i+"' class='bodyImg' src =https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg >\n</div>");
-            tableau.row.add( {
-              "Picture":       "<img class='bodyImg' src =https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg >",
-              "Title":   data.title,
-              "Owner":     data.owner,
-              "Date": "2011/04/25"
-            } ).draw();
+          $.each(photos, function(i,data){
+            var simpleImg = new Image();
+            simpleImg.id = data.id;
+            simpleImg.url = "https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg";
+
             var test = $("#image"+i);
             console.log(test);
             console.log(i);
-            test.click(function(){
+              $('#infosPhoto').empty();
               var ajax = $.ajax({
                 url : 'https://api.flickr.com/services/rest/',
                 type : 'GET',
@@ -114,17 +124,31 @@ $(document).ready(function(){
                   console.log(erreur);
                 }
               }).done(function(data){
+                console.log(data);
                 var owner = data.photo.owner;
-                $('#infosPhoto').append("<p> Endroit de la photo"+owner.location+"</p>");
+                simpleImg.owner = owner.username;
+                simpleImg.title = data.photo.title._content;
+                simpleImg.location = owner.location;
+                simpleImg.date = data.photo.dates.taken;
+                tableImg.images.push(simpleImg);
+
+                $('#infosPhoto').append("<p> Prise de la photo"+owner.location+"</p>");
                 $('#infosPhoto').append("<p> Nom : "+data.photo.title._content+"</p>");
                 $('#infosPhoto').append("<p> Photographe : "+owner.username+"</p>");
                 $('#infosPhoto').css("display", "block");
                 $('#infosPhoto').dialog().dialog("open");
+                
+                liste.append("<li class='bodyLi'>\n<div class='gallery'><img id ='image"+i+"' class='bodyImg' src =https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg >\n</div>");
+                tableau.row.add( {
+                  "Picture":       "<img class='bodyImg' src ="+simpleImg.url+" >",
+                  "Title":   simpleImg.title,
+                  "Owner":   simpleImg.owner,
+                  "Date": simpleImg.date,
+                } ).draw();
               });
-            });
           });
 
-
+          console.log(tableImg);
           }
           else{
             $('#NoCityFound').css("display", "block");
