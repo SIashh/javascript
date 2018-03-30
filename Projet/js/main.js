@@ -78,7 +78,7 @@ $(document).ready(function(){
         $.each(photos, function(i,data){
 
           liste.append("<li class='bodyLi'>\n<div class='gallery'><img class='bodyImg' src =https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg >\n</div>");
-          tableauBdy.append("<tr>\n<td><img class='bodyImg' src =https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg ></td>\n<td>TITRE</td>\n<td>SOURCE</td>\n<td>DATE</td>\n<tr>");
+          tableauBdy.append("<tr>\n<td><img class='bodyImg' src =https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg ></td>\n<td>"+data.title+"</td>\n<td>"+data.owner+"</td>\n<td>01/01/01</td>\n<tr>");
 
         });
         var photo = $('img');
