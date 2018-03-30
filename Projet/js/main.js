@@ -76,6 +76,7 @@ $(document).ready(function(){
         console.log(erreur);
       }
     }).done(function(data){
+      tableau.clear();
       var photos = data.photos.photo;
       $(".body").empty();
       if (photos.length != 0) {
