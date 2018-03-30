@@ -1,34 +1,8 @@
-.bodyContainer {
-  margin: 20px;
+.bodyImg:hover{
+    filter: drop-shadow(16px 16px 20px black);
 }
-
 .body{
-  list-style-type: none;
-  width: 500px;
-}
-
-.bodyTitle {
-  font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
-}
-
-.bodyImg{
-  float: left;
-  margin: 0 15px 0 0;
-  width:15em;
-}
-
-.bodyDes {
-  font: 200 12px/1.5 Georgia, Times New Roman, serif;
-}
-
-.bodyLi {
-  padding: 10px;
-  overflow: auto;
-}
-
-.bodyLi:hover {
-  background: #eee;
-  cursor: pointer;
+    list-style-type: none;
 }
 
 #NoCityFound {
