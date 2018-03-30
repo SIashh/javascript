@@ -1,6 +1,16 @@
 $(document).ready(function(){
   var form = $('form');
   var liste = $('.body');
+
+  var tableau = $('.tableau').DataTable( {
+    columns: [
+      { data: 'Picture' },
+      { data: 'Title' },
+      { data: 'Owner' },
+      { data: 'Date' }
+    ]
+  } );
+
   var isSelected = false;
   var search = "";
   $( "#tabs" ).tabs();
@@ -47,7 +57,6 @@ $(document).ready(function(){
       if (perPage == 0) {
         perPage = 100;
       }
-
       $.ajax({
         url : 'https://api.flickr.com/services/rest/',
         type : 'GET',
@@ -66,16 +75,21 @@ $(document).ready(function(){
           console.log(erreur);
         }
       }).done(function(data){
-        //on trouve dans photos les infos de toutes les images retournées par la requête
+        tableau.clear();
         var photos = data.photos.photo;
         $(".body").empty();
         if (photos.length != 0) {
           $('#NoCityFound').dialog().dialog("close");
           $('#NoCityFound').css("display", "none");
-          //Sur chacune des "images infos on créer une balise image"
-          console.log(photos);
           $.each(photos, function(i,data){
-            liste.append("<li><img class='images' id ='image"+i+"' src =https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg></li>");
+
+            liste.append("<li class='bodyLi'>\n<div class='gallery'><img id ='image"+i+"' class='bodyImg' src =https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg >\n</div>");
+            tableau.row.add( {
+              "Picture":       "<img class='bodyImg' src =https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg >",
+              "Title":   data.title,
+              "Owner":     data.owner,
+              "Date": "2011/04/25"
+            } ).draw();
             var test = $("#image"+i);
             console.log(test);
             console.log(i);
@@ -109,13 +123,16 @@ $(document).ready(function(){
               });
             });
           });
-        }
-        else{
-          $('#NoCityFound').css("display", "block");
-          $('#NoCityFound').dialog().dialog("open");
-        }
-      });
-    }else{
+
+
+          }
+          else{
+            $('#NoCityFound').css("display", "block");
+            $('#NoCityFound').dialog().dialog("open");
+          }
+        });
+      }else{
       alert("Veuillez choisir une ville");
-    }});
+    }
   });
+});

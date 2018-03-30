@@ -1,3 +1,10 @@
+.bodyImg:hover{
+    filter: drop-shadow(16px 16px 20px black);
+}
+.body{
+    list-style-type: none;
+}
+
 #NoCityFound {
   display : none;
 }
