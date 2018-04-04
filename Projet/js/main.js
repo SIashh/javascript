@@ -2,18 +2,21 @@ $(document).ready(function(){
   var form = $('form');
   var liste = $('.body');
 
+  $( "#tabs" ).tabs();
+
   var tableau = $('.tableau').DataTable( {
     columns: [
-      { data: 'Picture' },
-      { data: 'Title' },
-      { data: 'Owner' },
-      { data: 'Date' }
+      { title: 'Picture' },
+      { title: 'Title' },
+      { title: 'Owner' },
+      { title: 'Date' }
     ]
   } );
 
+    console.log(tableau);
   var isSelected = false;
   var search = "";
-  $( "#tabs" ).tabs();
+
 
   var Image = function(){
     this.id = null;
@@ -138,13 +141,10 @@ $(document).ready(function(){
                 $('#infosPhoto').css("display", "block");
                 $('#infosPhoto').dialog().dialog("open");
                 
-                liste.append("<li class='bodyLi'>\n<div class='gallery'><img id ='image"+i+"' class='bodyImg' src =https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg >\n</div>");
-                tableau.row.add( {
-                  "Picture":       "<img class='bodyImg' src ="+simpleImg.url+" >",
-                  "Title":   simpleImg.title,
-                  "Owner":   simpleImg.owner,
-                  "Date": simpleImg.date,
-                } ).draw();
+                liste.append("<li class='bodyLi'>\n<div class='gallery'><img id ='image"+i+"' class='bodyImg' src ="+simpleImg.url+">\n</div></li>");
+                console.log("Debug simpleimg :");
+                console.log(simpleImg);
+                tableau.row.add( ["<img class='bodyImg' src ="+simpleImg.url+" >",simpleImg.title,simpleImg.owner,simpleImg.date] ).draw();
               });
           });
 
