@@ -62,6 +62,8 @@ $(document).ready(function(){
 
   form.submit(function(e){
     e.preventDefault();
+    tableau.clear();
+
     if (isSelected && search != "") {
       var input = search;
       var perPage = $('input[name="nbResults"]').val();
@@ -100,9 +102,8 @@ $(document).ready(function(){
             simpleImg.id = data.id;
             simpleImg.url = "https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg";
 
-            var test = $("#image"+i);
-            console.log(test);
-            console.log(i);
+            var clickableImg = $("#image"+i);
+
               $('#infosPhoto').empty();
               var ajax = $.ajax({
                 url : 'https://api.flickr.com/services/rest/',
@@ -132,18 +133,20 @@ $(document).ready(function(){
                 simpleImg.date = data.photo.dates.taken;
                 tableImg.images.push(simpleImg);
 
-                $('#infosPhoto').append("<p> Prise de la photo"+owner.location+"</p>");
-                $('#infosPhoto').append("<p> Nom : "+data.photo.title._content+"</p>");
-                $('#infosPhoto').append("<p> Photographe : "+owner.username+"</p>");
-                $('#infosPhoto').css("display", "block");
-                $('#infosPhoto').dialog().dialog("open");
-                
-                liste.append("<li class='bodyLi'>\n<div class='gallery'><img id ='image"+i+"' class='bodyImg' src =https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg >\n</div>");
+                // clickableImg.click(function(){
+                //   $('#infosPhoto').append("<p> Prise de la photo"+simpleImg.location+"</p>");
+                //   $('#infosPhoto').append("<p> Nom : "+data.photo.title._content+"</p>");
+                //   $('#infosPhoto').append("<p> Photographe : "+simpleImg.owner+"</p>");
+                //   $('#infosPhoto').css("display", "block");
+                //   $('#infosPhoto').dialog().dialog("open");
+                // });
+
+                liste.append("<li class='bodyLi'>\n<div class='gallery'><img id ='image"+i+"' class='bodyImg' src ='"+simpleImg.url+"'/>\n</div>");
                 tableau.row.add( {
                   "Picture":       "<img class='bodyImg' src ="+simpleImg.url+" >",
                   "Title":   simpleImg.title,
                   "Owner":   simpleImg.owner,
-                  "Date": simpleImg.date,
+                  "Date": simpleImg.date
                 } ).draw();
               });
           });
