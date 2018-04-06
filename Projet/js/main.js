@@ -4,6 +4,14 @@ $(document).ready(function(){
 
   $( "#tabs" ).tabs();
 
+  $.datepicker.setDefaults({
+  showOn: "both",
+  buttonText : "📅",
+  });
+
+  $("#datepicker").datepicker();
+  $("#datepicker").datepicker("setDate","today");
+
   var tableau = $('.tableau').DataTable( {
     columns: [
       { title: 'Picture' },
@@ -13,7 +21,6 @@ $(document).ready(function(){
     ]
   } );
 
-    console.log(tableau);
   var isSelected = false;
   var search = "";
 
@@ -105,7 +112,6 @@ $(document).ready(function(){
             simpleImg.id = data.id;
             simpleImg.url = "https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg";
 
-            var clickableImg = $("#image"+i);
 
               $('#infosPhoto').empty();
               var ajax = $.ajax({
@@ -136,15 +142,20 @@ $(document).ready(function(){
                 simpleImg.date = data.photo.dates.taken;
                 tableImg.images.push(simpleImg);
 
-                // $('#infosPhoto').append("<p> Prise de la photo"+owner.location+"</p>");
-                // $('#infosPhoto').append("<p> Nom : "+data.photo.title._content+"</p>");
-                // $('#infosPhoto').append("<p> Photographe : "+owner.username+"</p>");
-                // $('#infosPhoto').css("display", "block");
-                // $('#infosPhoto').dialog().dialog("open");
 
                 liste.append("<li class='bodyLi'>\n<div class='gallery'><img id ='image"+i+"' class='bodyImg' src ="+simpleImg.url+">\n</div></li>");
+                var clickableImg = $("#image"+i);
                 console.log("Debug simpleimg :");
                 console.log(simpleImg);
+                clickableImg.click(function(){
+                  $('#infosPhoto').dialog().dialog("close");
+                  $('#infosPhoto').empty();
+                  $('#infosPhoto').append("<p> Prise de la photo"+simpleImg.location+"</p>");
+                  $('#infosPhoto').append("<p> Nom : "+simpleImg.title+"</p>");
+                  $('#infosPhoto').append("<p> Photographe : "+simpleImg.owner+"</p>");
+                  $('#infosPhoto').css("display", "block");
+                  $('#infosPhoto').dialog().dialog("open");
+                });
                 tableau.row.add( ["<img class='bodyImg' src ="+simpleImg.url+" >",simpleImg.title,simpleImg.owner,simpleImg.date] ).draw();
               });
           });
