@@ -4,14 +4,10 @@ $(document).ready(function(){
 
   $( "#tabs" ).tabs();
 
+  //paramètres du calendrier
   $.datepicker.setDefaults({
   showOn: "both",
-  buttonText : "📅",
-  onSelect : function(data){
-    date = data;
-    console.log("tututututu");
-    console.log(data);
-  }
+  buttonText : "📅"
   });
 
   $("#datepicker").datepicker();
@@ -79,6 +75,7 @@ $(document).ready(function(){
   });
 
   $(".ui-tabs-anchor").click(function(){
+    $('#infosPhoto').empty();
     $('#infosPhoto').dialog().dialog("close");
   });
 
@@ -127,7 +124,7 @@ $(document).ready(function(){
             var simpleImg = new Image();
             simpleImg.id = data.id;
             simpleImg.url = "https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg";
-
+              console.log("dzpadzada");
               $('#infosPhoto').empty();
               var ajax = $.ajax({
                 url : 'https://api.flickr.com/services/rest/',
@@ -163,11 +160,20 @@ $(document).ready(function(){
                 console.log("Debug simpleimg :");
                 console.log(simpleImg);
                 clickableImg.click(function(){
-                  // $('#infosPhoto').empty();
-                  // $('#infosPhoto').dialog().dialog("close");
-                  $('#infosPhoto').append("<p> Prise de la photo"+simpleImg.location+"</p>");
-                  $('#infosPhoto').append("<p> Nom : "+simpleImg.title+"</p>");
-                  $('#infosPhoto').append("<p> Photographe : "+simpleImg.owner+"</p>");
+                  $('#infosPhoto').empty();
+                  $('#infosPhoto').dialog().dialog("close");
+                  if(simpleImg.location != ""){
+                    $('#infosPhoto').append("<p> Prise de la photo : "+simpleImg.location+"</p>");
+                  }
+                  if(simpleImg.title != ""){
+                    $('#infosPhoto').append("<p> Nom du cliché : "+simpleImg.title+"</p>");
+                  }
+                  if(simpleImg.owner != ""){
+                    $('#infosPhoto').append("<p> Photographe : "+simpleImg.owner+"</p>");
+                  }
+                  if(simpleImg.date != " "){
+                    $('#infosPhoto').append("<p> Date de prise : "+simpleImg.date+"</p>");
+                  }
                   $('#infosPhoto').css("display", "block");
                   $('#infosPhoto').dialog().dialog("open");
                 });
