@@ -8,12 +8,15 @@ $(document).ready(function(){
   showOn: "both",
   buttonText : "📅",
   onSelect : function(data){
+    date = data;
+    console.log("tututututu");
     console.log(data);
   }
   });
 
   $("#datepicker").datepicker();
   $("#datepicker").datepicker("setDate","today");
+  $("#datepicker").datepicker("option", "dateFormat", "dd-mm-yy");
 
 
   var tableau = $('.tableau').DataTable( {
@@ -24,6 +27,7 @@ $(document).ready(function(){
       { title: 'Date' }
     ]
   } );
+
 
   var isSelected = false;
   var search = "";
@@ -74,7 +78,13 @@ $(document).ready(function(){
     }
   });
 
+  $(".ui-tabs-anchor").click(function(){
+    $('#infosPhoto').dialog().dialog("close");
+  });
+
   form.submit(function(e){
+    var date = $("#datepicker").val();
+    $('#infosPhoto').dialog().dialog("close");
     e.preventDefault();
     tableau.clear();
 
@@ -94,6 +104,7 @@ $(document).ready(function(){
           tags : input,
           format : "json",
           nojsoncallback : "1",
+          min_upload_date : date,
           per_page : perPage
         },
         success : function(codeHtmlSucces, statut){
@@ -108,14 +119,14 @@ $(document).ready(function(){
         var photos = data.photos.photo;
         $(".body").empty();
         if (photos.length != 0) {
-          $('#NoCityFound').dialog().dialog("close");
           $('#NoCityFound').css("display", "none");
+          $('#NoCityFound').dialog().dialog("close");
+          console.log("coucou");
 
           $.each(photos, function(i,data){
             var simpleImg = new Image();
             simpleImg.id = data.id;
             simpleImg.url = "https://farm"+data.farm+".staticflickr.com/"+data.server+"/"+data.id+"_"+data.secret+".jpg";
-
 
               $('#infosPhoto').empty();
               var ajax = $.ajax({
@@ -152,8 +163,8 @@ $(document).ready(function(){
                 console.log("Debug simpleimg :");
                 console.log(simpleImg);
                 clickableImg.click(function(){
-                  $('#infosPhoto').dialog().dialog("close");
-                  $('#infosPhoto').empty();
+                  // $('#infosPhoto').empty();
+                  // $('#infosPhoto').dialog().dialog("close");
                   $('#infosPhoto').append("<p> Prise de la photo"+simpleImg.location+"</p>");
                   $('#infosPhoto').append("<p> Nom : "+simpleImg.title+"</p>");
                   $('#infosPhoto').append("<p> Photographe : "+simpleImg.owner+"</p>");
