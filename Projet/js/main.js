@@ -2,18 +2,21 @@ $(document).ready(function(){
   var form = $('form');
   var liste = $('.body');
 
+  $( "#tabs" ).tabs();
+
   var tableau = $('.tableau').DataTable( {
     columns: [
-      { data: 'Picture' },
-      { data: 'Title' },
-      { data: 'Owner' },
-      { data: 'Date' }
+      { title: 'Picture' },
+      { title: 'Title' },
+      { title: 'Owner' },
+      { title: 'Date' }
     ]
   } );
 
+    console.log(tableau);
   var isSelected = false;
   var search = "";
-  $( "#tabs" ).tabs();
+
 
   var Image = function(){
     this.id = null;
@@ -133,21 +136,16 @@ $(document).ready(function(){
                 simpleImg.date = data.photo.dates.taken;
                 tableImg.images.push(simpleImg);
 
-                // clickableImg.click(function(){
-                //   $('#infosPhoto').append("<p> Prise de la photo"+simpleImg.location+"</p>");
-                //   $('#infosPhoto').append("<p> Nom : "+data.photo.title._content+"</p>");
-                //   $('#infosPhoto').append("<p> Photographe : "+simpleImg.owner+"</p>");
-                //   $('#infosPhoto').css("display", "block");
-                //   $('#infosPhoto').dialog().dialog("open");
-                // });
+                // $('#infosPhoto').append("<p> Prise de la photo"+owner.location+"</p>");
+                // $('#infosPhoto').append("<p> Nom : "+data.photo.title._content+"</p>");
+                // $('#infosPhoto').append("<p> Photographe : "+owner.username+"</p>");
+                // $('#infosPhoto').css("display", "block");
+                // $('#infosPhoto').dialog().dialog("open");
 
-                liste.append("<li class='bodyLi'>\n<div class='gallery'><img id ='image"+i+"' class='bodyImg' src ='"+simpleImg.url+"'/>\n</div>");
-                tableau.row.add( {
-                  "Picture":       "<img class='bodyImg' src ="+simpleImg.url+" >",
-                  "Title":   simpleImg.title,
-                  "Owner":   simpleImg.owner,
-                  "Date": simpleImg.date
-                } ).draw();
+                liste.append("<li class='bodyLi'>\n<div class='gallery'><img id ='image"+i+"' class='bodyImg' src ="+simpleImg.url+">\n</div></li>");
+                console.log("Debug simpleimg :");
+                console.log(simpleImg);
+                tableau.row.add( ["<img class='bodyImg' src ="+simpleImg.url+" >",simpleImg.title,simpleImg.owner,simpleImg.date] ).draw();
               });
           });
 
