@@ -7,10 +7,14 @@ $(document).ready(function(){
   $.datepicker.setDefaults({
   showOn: "both",
   buttonText : "📅",
+  onSelect : function(data){
+    console.log(data);
+  }
   });
 
   $("#datepicker").datepicker();
   $("#datepicker").datepicker("setDate","today");
+
 
   var tableau = $('.tableau').DataTable( {
     columns: [
