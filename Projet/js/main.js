@@ -4,6 +4,9 @@ $(document).ready(function(){
 
   $( "#tabs" ).tabs();
 
+  //change l'apparence du bouton submit
+  $('#submit').addClass("ui-icon ui-icon-circle-triangle-e");
+
   //initialisation des paramètres du calendrier
   $.datepicker.setDefaults({
     showOn: "both",
