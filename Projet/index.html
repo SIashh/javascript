@@ -3,12 +3,15 @@
 <head>
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+  <link href="//cdn.muicss.com/mui-0.9.39-rc1/css/mui.min.css" rel="stylesheet" type="text/css" />
+
   <link rel="stylesheet" href="css/main.css">
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
   <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
 
   <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.muicss.com/mui-0.9.39-rc1/js/mui.min.js"></script>
   <script type="text/javascript" src="js/main.js">
 
 
@@ -17,12 +20,29 @@
   <title>Projet</title>
 </head>
 <body>
-  <form class="" action="index.html" method="post">
-    <input type="text" name="inputVille" value="" id="search">
-    <input type="number" name="nbResults" value="" min="0">
-    <input type="text" name="calender" value="" id="datepicker">
+<div class="mui-container-fluid">
+  <div class="title">
+    <img src="img/titre.gif" alt="image pickr" />
+  </div>
+  <div class="formulaire">
+  <form class="mui-form" action="index.html" method="post">
+    <legend>Entrez votre recherche</legend>
+
+    <div class="mui-textfield mui-textfield--float-label">
+      <input type="text" name="inputVille" value="" id="search">
+      <label>Ville</label>
+    </div>
+    <div class="mui-textfield mui-textfield--float-label">
+      <input type="number" name="nbResults" value="" min="0">
+      <label>Nombre de résultats</label>
+    </div>
+    <div class="mui-textfield mui-textfield--float-label">
+      <input type="text" name="calender" value="" id="datepicker">
+      <label>Date</label>
+    </div>
     <input type="submit" name="envoyer" value="Envoyer" class="ui-icon ui-icon-heart" id="submit">
   </form>
+  </div>
 
   <div id="NoCityFound">Aucun résultat n'a été trouvé pour cette ville</div>
   <div id="infosPhoto"></div>
@@ -30,11 +50,11 @@
   <li class="photo"></li>
   <li class="tableau"></li>
 </ul> -->
-
-<div id="tabs">
-  <ul>
-    <li><a href="#tabs-1">Liste</a></li>
-    <li><a href="#tabs-2">Tableau</a></li>
+<div class="result">
+<div id="tabs-min" class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
+  <ul class="ui-tabs-nav">
+    <li class=""><a href="#tabs-1">Liste</a></li>
+    <li class=""><a href="#tabs-2">Tableau</a></li>
   </ul>
   <div id="tabs-1">
       <ul class="body"></ul>
@@ -44,6 +64,8 @@
 
     </table>
   </div>
+</div>
+</div>
 </div>
 </body>
 </html>

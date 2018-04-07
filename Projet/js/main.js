@@ -2,21 +2,19 @@ $(document).ready(function(){
   var form = $('form');
   var liste = $('.body');
 
-  $( "#tabs" ).tabs();
+  $( "#tabs-min" ).tabs();
 
   //change l'apparence du bouton submit
   $('#submit').addClass("ui-icon ui-icon-circle-triangle-e");
 
   //initialisation des paramètres du calendrier
   $.datepicker.setDefaults({
-    showOn: "both",
-    buttonText : "📅"
   });
 
   //initialisation du calendrier
   $("#datepicker").datepicker();
   //modification de certains paramètres du calendrier
-  $("#datepicker").datepicker("setDate","today");
+  // $("#datepicker").datepicker("setDate","today");
   $("#datepicker").datepicker("option", "dateFormat", "dd-mm-yy");
 
 
@@ -57,7 +55,7 @@ $(document).ready(function(){
           commune :$(this)[0].term,
           maxRows:50
         },
-        url: 'http://infoweb-ens/~jacquin-c/codePostal/commune.php',
+        url: 'http://otto.private/js/compelete.php',
       }).done(function(data){
         console.log(data);
         var data2 = data.map(function (item) {
@@ -93,7 +91,6 @@ $(document).ready(function(){
     //on ferme la fenêtre d'informations sur une photo si elle est ouverte
     $('#infosPhoto').dialog().dialog("close");
     e.preventDefault();
-    tableau.clear();
 
     //Si on sélectionne bien un item de la liste proposée par l'autocomplétion
     if (isSelected && search != "") {
@@ -127,9 +124,13 @@ $(document).ready(function(){
       }).done(function(data){
         //instanciation du modèle contenant toutes les images
         var tableImg = new Images();
-        tableau.clear();
+
         var photos = data.photos.photo;
+
+        //On vide la liste et le tableau
+        tableau.clear();
         $(".body").empty();
+
         if (photos.length != 0) {
           $('#NoCityFound').css("display", "none");
           $('#NoCityFound').dialog().dialog("close");
@@ -196,6 +197,7 @@ $(document).ready(function(){
               });
               //ici on rempli le tableau avec l'image et les infos complémentaires
               tableau.row.add( ["<img class='bodyImg' src ="+simpleImg.url+" >",simpleImg.title,simpleImg.owner,simpleImg.date] ).draw();
+              console.log("add row of :"+simpleImg.title);
             });
           });
         }
