@@ -14,7 +14,7 @@ $(document).ready(function(){
   //initialisation du calendrier
   $("#datepicker").datepicker();
   //modification de certains paramètres du calendrier
-  // $("#datepicker").datepicker("setDate","today");
+  $("#datepicker").datepicker("setDate","today");
   $("#datepicker").datepicker("option", "dateFormat", "dd-mm-yy");
 
 
