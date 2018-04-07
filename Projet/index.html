@@ -4,17 +4,13 @@
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
   <link href="//cdn.muicss.com/mui-0.9.39-rc1/css/mui.min.css" rel="stylesheet" type="text/css" />
-
   <link rel="stylesheet" href="css/main.css">
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-  <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
 
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.muicss.com/mui-0.9.39-rc1/js/mui.min.js"></script>
   <script type="text/javascript" src="js/main.js">
-
-
   </script>
   <meta charset="utf-8">
   <title>Projet</title>
@@ -24,6 +20,7 @@
   <div class="title">
     <img src="img/titre.gif" alt="image pickr" />
   </div>
+  <div class="mui-panel">
   <div class="formulaire">
   <form class="mui-form" action="index.html" method="post">
     <legend>Entrez votre recherche</legend>
@@ -40,9 +37,12 @@
       <input type="text" name="calender" value="" id="datepicker">
       <label>Date</label>
     </div>
-    <input type="submit" name="envoyer" value="Envoyer" class="ui-icon ui-icon-heart" id="submit">
+    <button type="submit" name="envoyer" value="Envoyer"  id="submit" class="mui-btn mui-btn--raised"><span class="ui-icon ui-icon-search"></span></button>
+
   </form>
   </div>
+  </div>
+
 
   <div id="NoCityFound">Aucun résultat n'a été trouvé pour cette ville</div>
   <div id="infosPhoto"></div>

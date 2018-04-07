@@ -389,15 +389,18 @@ table.dataTable td {
         margin-top: 0.5em; } }
 
 .formulaire{
-    margin-left: 2%;
-    width:40%;
 
+    width: 80%;
 
 }
 
+.mui-panel{
+    margin-right: 10%;
+    margin-left: 10%;
+}
 .title{
     margin-top: 2%;
-
+    margin-bottom: 2%;
     text-align: center;
 }
 
