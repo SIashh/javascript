@@ -7,11 +7,11 @@
 }
 
 #NoCityFound {
-  display : none;
+    display : none;
 }
 
 #infosPhoto{
-  display:none;
+    display:none;
 }
 
 #tabs-min {
@@ -411,4 +411,12 @@ body{
 
 .bodyLi{
     float: left;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+
 }
