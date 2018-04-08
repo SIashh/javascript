@@ -26,9 +26,9 @@ $(document).ready(function(){
     } );
 
     //La variable isSelected est un flag pour savoir si l'utilisateur a bien prit un élément proposé par l'autocomplete
-    var isSelected = false;
+    var isSelected = true;
     //La variable search contiendera la ville recherché par l'utilisateur
-    var search = "";
+    var search = "Nantes";
 
     //modèle représentant une image
     var Image = function(){
@@ -38,12 +38,12 @@ $(document).ready(function(){
         this.location = null;
         this.title = null;
         this.date = null;
-    }
+    };
 
     //modèle représentant toutes les images retournées par flickr
     var Images = function(){
         this.images = new Array();
-    }
+    };
 
     //On crée l'autocomplete sur le champ "Ville" du formulaire
     $("#search").autocomplete({
@@ -155,7 +155,7 @@ $(document).ready(function(){
                                 secret : data.secret
                             },
                             success : function(codeHtmlSucces, statut){
-                                console.log("succès");
+                                console.log(statut);
                             },
                             error : function(resultat, statut, erreur){
                                 console.log(erreur);
@@ -194,7 +194,7 @@ $(document).ready(function(){
                             });
                             //ici on rempli le tableau avec l'image et les infos complémentaires
                             tableau.row.add( ["<img class='bodyImg' src ="+simpleImg.url+" >",simpleImg.title,simpleImg.owner,simpleImg.date] ).draw();
-                            console.log("add row of :"+simpleImg.title);
+
                         });
                     });
                 }
