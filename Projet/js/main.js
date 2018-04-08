@@ -55,12 +55,12 @@ $(document).ready(function(){
                     commune :$(this)[0].term,
                     maxRows:50
                 },
-                url: 'http://otto.private/js/compelete.php', //Ici il s'agit du script php sur lequel on récupère la liste de ville
+                url: 'http://www.infoweb-ens.com/~jacquin-c/codePostal/commune.php', //Ici il s'agit du script php sur lequel on récupère la liste de ville
             }).done(function(data){
                 var data2 = data.map(function (item) {
                     return {
                         label :item.Ville,
-                        value:item.Ville,
+                        value:item.Ville
                     };
                 });
                 response(data2);
@@ -70,6 +70,7 @@ $(document).ready(function(){
             "ui-autocomplete": "highlight"
         },
         select:function (event,ui) {
+            //Quand l'utilisateur a selectionnée une proposition on passe le flag isSelected a vrai et l'item selectioné à la variable search
             isSelected = true;
             search = ui.item.value;
         }
