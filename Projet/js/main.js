@@ -26,9 +26,9 @@ $(document).ready(function(){
     } );
 
     //La variable isSelected est un flag pour savoir si l'utilisateur a bien prit un élément proposé par l'autocomplete
-    var isSelected = true;
+    var isSelected = false;
     //La variable search contiendera la ville recherché par l'utilisateur
-    var search = "Nantes";
+    var search = "";
 
     //modèle représentant une image
     var Image = function(){
